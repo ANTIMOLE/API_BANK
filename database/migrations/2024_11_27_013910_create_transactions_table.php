@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->foreign("account_id")->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('status')->references('status')->on('transaction_statuses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('status')->references('id')->on('transaction_status')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

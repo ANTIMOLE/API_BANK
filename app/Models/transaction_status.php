@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class transaction_statis extends Model
+class transaction_status extends Model
 {
-    protected $table = 'transaction_statis';
+    protected $table = 'transaction_status';
     public $timestamps = true;
 
     protected $fillable = ['status'];
 
     public function transactions(){
-        return $this->hasOne(transactions::class,'status','id');
+        return $this->hasMany(transactions::class,'status','id');
     }
 }

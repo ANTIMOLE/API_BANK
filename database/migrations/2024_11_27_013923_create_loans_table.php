@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('transaction_id');
             $table->decimal('loan_amount', 15, 2);
-            $table->decimal('interest_rate', 5, 2);
-            $table->unsignedInteger('loan_term');
+            $table->decimal('interest_rate', 5, 2)->nullable();
+            $table->unsignedInteger('loan_term')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->decimal('monthly_installment', 15, 2);
-            $table->timestamp('rejected_at')->nullable();
-            $table->timestamp('approved_at')->nullable();
-            $table->timestamps();
+            $table->decimal('monthly_installment', 15, 2)->nullable();
+            // $table->timestamp('rejected_at')->nullable();
+            // $table->timestamp('approved_at')->nullable();
 
 
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');

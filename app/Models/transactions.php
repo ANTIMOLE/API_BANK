@@ -22,6 +22,6 @@ class transactions extends Model
     }
 
     public function status(){
-        return $this->belongsTo(transaction_statis::class,'status','id');
+        return $this->belongsTo(transaction_status::class,'status','id');
     }
 }

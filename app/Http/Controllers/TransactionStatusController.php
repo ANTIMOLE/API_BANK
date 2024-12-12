@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\transaction_statis;
+use App\Models\transaction_status;
 use Illuminate\Http\Request;
 
-class TransactionStatisController extends Controller
+class TransactionStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,18 +24,17 @@ class TransactionStatisController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(transaction_statis $transaction_statis)
+    
+    
+    public function show(transaction_status $transaction_statis)
     {
-        //
+    
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, transaction_statis $transaction_statis)
+    public function update(Request $request, transaction_status $transaction_statis)
     {
         //
     }
@@ -42,7 +42,7 @@ class TransactionStatisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(transaction_statis $transaction_statis)
+    public function destroy(transaction_status $transaction_statis)
     {
         //
     }

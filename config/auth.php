@@ -36,9 +36,17 @@ return [
     */
 
     'guards' => [
+        // For Web (SPA) authentication using Sanctum
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        // For API authentication using Passport
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',  
+            'hash' => false, 
         ],
     ],
 
@@ -64,11 +72,6 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
