@@ -67,17 +67,17 @@ class AccountsController extends Controller
 
         $user = auth()->user();
         if($user->hasRole('admin')){
-                $account = accounts::where('user_id', $request->user_id)->where('id', $request->account_id)->first();
+                $account = accounts::where('user_id', $request->user_id)->where('account_number', $request->account_number)->first();
                 if(!$account){
                     return response(['message' => 'Account not found'], 404);
                 }else{
                     return response(['message' => 'Account retrieved successfully', 'account' => $account], 200);
                 }
         }else{
-            if($user->user_id != $request->user_id){
-                return response(['message' => 'Unauthorized'], 403);
+            if($user->id != $request->user_id){
+                return response(['message' => 'Unauthorized' , 'user_id' => $user->id], 403);
             }else{
-                $account = accounts::where('user_id', $request->user_id)->where('id', $request->account_id)->first();
+                $account = accounts::where('user_id', $request->user_id)->where('account_number', $request->account_number)->first();
                 if(!$account){
                     return response(['message' => 'Account not found'], 404);
                 }else{
@@ -99,8 +99,8 @@ class AccountsController extends Controller
         ]);
 
        
-
         $user = auth()->user();
+        // $user = user::where('id',$request->user_id)->first();
 
         if($user->hasRole('admin')){
             $account = accounts::where('account_number', $request->account_number)->first();

@@ -125,8 +125,12 @@ class UsersController extends Controller
     $accessToken->expires_at = now()->addDays(120);
     $accessToken->save();
 
+    $accounts = accounts::where('user_id',$user->id)->first();
+
     return response([
         'message' => $user->hasRole('admin') ? 'Admin logged in successfully' : 'User logged in successfully',
+        'user' => $user,
+        'accounts' => $accounts,
         'token' => $plainTextToken,
         'tokenData' => [
             'id' => $accessToken->id,
