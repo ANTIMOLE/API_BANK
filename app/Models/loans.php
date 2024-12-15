@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class loans extends Model
 {
     protected $table = 'loans';
-    public $timestamps = true;
+    public $timestamps = false;
+
+    
 
     protected $fillable = ['transaction_id','loan_amount','interest_rate','loan_term','loan_status','monthly_installment'];
 

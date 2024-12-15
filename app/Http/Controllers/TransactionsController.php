@@ -39,14 +39,6 @@ class TransactionsController extends Controller
 
         $status = 1;
 
-        
-
-        $user = auth()->user();
-
-        if(!$user->hasRole('admin')){
-            return response(['message' => 'Unauthorized'], 403);
-        }
-
         $transaction = transactions::create([
             'account_id' => $request->account_id,
             'transaction_type' => $request->transaction_type,
@@ -57,7 +49,7 @@ class TransactionsController extends Controller
         if($transaction->transaction_type == 'loan'){
             $loan = loans::create([
                 'transaction_id' => $transaction->id,
-                'amount' => $transaction->amount,
+                'loan_amount' => $transaction->amount,
                 'status' => $status
             ]);
 
@@ -110,8 +102,29 @@ class TransactionsController extends Controller
     public function show(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|integer',
+
             'transaction_id' => 'required|integer'
+        ]);
+        
+        
+
+
+        $transaction = transactions::where('id', $request->transaction_id)->first();
+
+        if(!$transaction){
+            return response(['message' => 'Transaction not found'], 403);
+        }else{
+            return response(['message' => 'Transaction retrieved successfully', 'transaction' => $transaction], 200);
+        }
+
+
+        
+    }
+
+    public function showByUser(Request $request){
+        $request->validate([
+            'user_id' => 'required|integer',
+            'account_id' => 'required|integer',
         ]);
 
         
@@ -119,7 +132,7 @@ class TransactionsController extends Controller
         $user = auth()->user();
 
         if($user->hasRole('admin')){
-            $transaction = transactions::where('id', $request->transaction_id)->first();
+            $transaction = transactions::where('account_id', $request->account_id)->get();
             if(!$transaction){
                 return response(['message' => 'Transaction not found'], 403);
             }else{
@@ -132,16 +145,13 @@ class TransactionsController extends Controller
             return response(['message' => 'Unauthorized'], 403);
         }
 
-        $transaction = transactions::where('id', $request->transaction_id)->first();
+        $transaction = transactions::where('account_id', $request->account_id)->get();
 
         if(!$transaction){
             return response(['message' => 'Transaction not found'], 403);
         }else{
             return response(['message' => 'Transaction retrieved successfully', 'transaction' => $transaction], 200);
         }
-
-
-        
     }
 
     

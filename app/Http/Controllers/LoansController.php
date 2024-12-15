@@ -80,13 +80,10 @@ class LoansController extends Controller
         $request->validate([
             'loan_id' => 'required|integer',
             'interest_rate' => 'required|numeric',
-            'term' => 'required|integer',
-            'monthly_payment' => 'required|numeric',
+            'loan_term' => 'required|integer',
+            'monthly_installment' => 'required|numeric',
         ]);
 
-       
-
-        $user = auth()->user();
 
         $loan = loans::find($request->loan_id);
         if(!$loan){
